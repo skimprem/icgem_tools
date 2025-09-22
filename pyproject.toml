@@ -1,0 +1,61 @@
+[build-system]
+requires = ['setuptools>=61.0', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'icgem-tools'
+version = '0.1.0'
+description = 'Python library for reading and writing ICGEM format files'
+readme = 'README.md'
+license = {file = 'LICENSE'}
+authors = [
+    {name = 'Roman Sermiagin', email = 'roman.sermiagin@gmail.com'}
+]
+maintainers = [
+    {name = 'Roman Sermiagin', email = 'roman.sermiagin@gmail.com'}
+]
+keywords = ['geodesy', 'gravity', 'icgem', 'spherical harmonics', 'geopotential']
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Science/Research',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Scientific/Engineering',
+    'Topic :: Scientific/Engineering :: GIS',
+]
+requires-python = '>=3.8'
+dependencies = [
+    'numpy>=1.20.0',
+    'scipy>=1.7.0',
+    'pandas>=1.3.0',
+    'xarray',
+]
+
+[project.optional-dependencies]
+dev = [
+    'pytest>=6.0',
+    'pytest-cov',
+    'black',
+    'isort',
+    'flake8',
+    'mypy',
+    'pre-commit',
+]
+docs = [
+    'sphinx>=4.0',
+    'sphinx-rtd-theme',
+    'myst-parser',
+]
+all = ['icgem-tools[dev,docs]']
+
+[project.urls]
+Homepage = 'https://github.com/skimprem/icgem-tools'
+# Documentation = 'https://icgem-tools.readthedocs.io/'
+Repository = 'https://github.com/skimprem/icgem-tools.git'
+Issues = 'https://github.com/skimprem/icgem-tools/issues'
