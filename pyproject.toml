@@ -36,7 +36,6 @@ dependencies = [
     'pandas>=1.3.0',
     'xarray',
 ]
-
 [project.optional-dependencies]
 dev = [
     'pytest>=6.0',
