@@ -8,8 +8,6 @@ ICGEM Tools provides utilities for:
 
 - Reading ICGEM format files
 - Writing models to ICGEM format
-- Processing spherical harmonic coefficients
-- Validating gravitational field models
 
 ## Installation
 
@@ -32,54 +30,29 @@ pip install -e ".[dev]"
 ### Reading an ICGEM file
 
 ```python
-from icgem_tools import ICGEMReader
+from icgem_tools.points import ICGEMTable
+from icgem_tools.grids import ICGEMGrid
 
-# Create reader and read file
-reader = ICGEMReader()
-model = reader.read_file('path/to/model.gfc')
+# Load data file (*.dat)
+table_object = ICGEMTable('path/to/file.dat')
+table_object.read()
+data = table_object.data
 
-# Get model information
-print(model.summary())
+# Get table information
+print(data.metadata)
 
-# Get a coefficient
-coeff = model.get_coefficient(degree=2, order=0)
-print(f"C20 = {coeff.c_coefficient}")
+# Load a grid file (*.gdf)
+grid_object = ICGEMGrid('path/to/grid.gdf)
+grid_object.read()
+grid = grid_object.grid
+
+# Get grid informatioin
+print(grid_object.metadata)
 ```
 
 ### Writing an ICGEM file
 
-```python
-from icgem_tools import ICGEMWriter, GravityModel, ModelMetadata
-
-# Create model metadata
-metadata = ModelMetadata(
-    product_type="gravity_field",
-    modelname="test_model",
-    earth_gravity_constant=3.986004418e14,
-    radius=6378136.3,
-    max_degree=10
-)
-
-# Create model and add coefficients
-model = GravityModel(metadata)
-model.add_coefficient(degree=0, order=0, c_coeff=1.0, s_coeff=0.0)
-model.add_coefficient(degree=2, order=0, c_coeff=-4.84166774e-4, s_coeff=0.0)
-
-# Write to file
-writer = ICGEMWriter()
-writer.write_file(model, 'output_model.gfc')
-```
-
-### Working with coefficients
-
-```python
-# Get coefficient matrices
-C_matrix, S_matrix = model.coefficients.get_coefficient_matrix()
-
-# Iterate through coefficients of a specific degree
-for coeff in model.coefficients.get_coefficients_by_degree(2):
-    print(f"C{coeff.degree}{coeff.order} = {coeff.c_coefficient}")
-```
+At the development stage
 
 ## Project Structure
 
@@ -93,7 +66,6 @@ icgem_tools/
 ├── examples/             # Usage examples
 ├── docs/                 # Documentation
 ├── data/                 # Test data
-├── requirements.txt      # Dependencies
 ├── pyproject.toml        # Project configuration
 └── README.md             # This file
 ```
@@ -108,49 +80,11 @@ icgem_tools/
 
 ### Reading Methods
 
-- `read_file()`: Complete file reading
-- `read_header_only()`: Header only reading
-- `iter_data()`: Streaming data reading
+- `read()`: Complete file reading
 
 ### Writing Methods
 
-- `write_file()`: Write complete data
-- `write_subset()`: Write data subset
-- `write_ascii_table()`: Write in tabular format## Requirements
-
-- Python 3.8+
-- NumPy >= 1.20.0
-- SciPy >= 1.7.0
-- Pandas >= 1.3.0
-
-## Development
-
-### Setting up development environment
-
-```bash
-# Clone repository
-git clone <repository-url>
-cd icgem_tools
-
-# Install in development mode
-pip install -e ".[dev]"
-
-# Install pre-commit hooks
-pre-commit install
-```
-
-### Code formatting
-
-```bash
-# Format with black
-black src/ examples/
-
-# Sort imports
-isort src/ examples/
-
-# Type checking
-mypy src/
-```
+At the development stage
 
 ## License
 
